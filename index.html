@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Café da Milla</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="topo">
+  <div class="marca">
+    <img src="WhatsApp Image 2026-11-17 at 16.13.50.jpeg" alt="Logo Café da Milla">
+    <div>
+      <h1>Café da Milla</h1>
+      <p>Sabor, carinho e qualidade!</p>
+    </div>
+  </div>
+  <button class="botao-proprietaria" onclick="abrirAdmin()">⚙ Proprietária</button>
+</header>
+
+<main>
+  <section class="apresentacao">
+    <div class="enfeite">✿　✿　✿</div>
+    <p class="etiqueta">UM CANTINHO ESPECIAL PARA VOCÊ</p>
+    <h2>Um sabor que abraça!</h2>
+    <p class="texto-apresentacao">
+      No Café da Milla, cada detalhe é preparado com carinho.
+      Sabores especiais, ingredientes selecionados e aquele toque
+      caseiro que transforma qualquer momento.
+    </p>
+    <p class="frase-destaque">Seu dia merece um sabor especial. ♡</p>
+    <a href="#cardapio" class="botao-ver-cardapio">Conheça nosso cardápio</a>
+  </section>
+
+  <div class="faixa">
+    <span>Feito com carinho</span>
+    <span>Ingredientes selecionados</span>
+    <span>Sabor de verdade</span>
+  </div>
+
+  <section class="cardapio" id="cardapio">
+    <div class="titulo-secao">
+      <p>✦　PREPARADO COM AMOR　✦</p>
+      <h2>Nosso cardápio</h2>
+      <span>Escolha seus favoritos e monte seu pedido.</span>
+    </div>
+
+    <div class="aviso">
+      Consulte a disponibilidade dos sabores do dia.
+    </div>
+
+    <div class="categorias" id="categorias"></div>
+    <div class="lista-produtos" id="produtos"></div>
+  </section>
+
+  <section class="final">
+    <h2>Comer bem também é uma forma de carinho!</h2>
+    <p>Esperamos seu pedido. ♡</p>
+  </section>
+</main>
+
+<footer>
+  <img src="WhatsApp Image 2026-11-17 at 16.13.50.jpeg" alt="Café da Milla">
+  <h2>Café da Milla</h2>
+  <p>Sabor, carinho e qualidade!</p>
+</footer>
+
+<button class="botao-carrinho" onclick="abrirCarrinho()">
+  🛒 Meu carrinho <span id="contador-carrinho">0</span>
+</button>
+
+<!-- CARRINHO -->
+<div class="modal" id="modal-carrinho">
+  <div class="janela">
+    <button class="fechar" onclick="fecharModal('modal-carrinho')">×</button>
+    <p class="mini-titulo">SEU PEDIDO</p>
+    <h2>Meu carrinho</h2>
+
+    <div id="itens-carrinho"></div>
+
+    <div class="totais">
+      <p>Subtotal <strong id="subtotal-carrinho">R$ 0,00</strong></p>
+      <p class="total">Total <strong id="total-carrinho">R$ 0,00</strong></p>
+    </div>
+
+    <h3 class="titulo-form">Dados para entrega</h3>
+    <input id="cliente-nome" placeholder="Seu nome">
+    <input id="cliente-telefone" type="tel" placeholder="Seu telefone">
+    <input id="cliente-endereco" placeholder="Endereço de entrega">
+
+    <label for="horario-entrega">Horário desejado</label>
+    <select id="horario-entrega">
+      <option value="">Selecione o horário</option>
+      <option>11:00</option><option>11:20</option><option>11:40</option>
+      <option>12:00</option><option>12:20</option>
+      <option>14:00</option><option>14:30</option><option>15:00</option>
+      <option>15:30</option><option>16:00</option><option>16:30</option>
+      <option>17:00</option>
+    </select>
+    <p class="observacao">Entregas das 11h às 12h20 e das 14h às 17h.</p>
+
+    <button class="botao-principal" onclick="finalizarPedido()">
+      Finalizar pelo WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="modal" id="modal-login">
+  <div class="janela janela-login">
+    <button class="fechar" onclick="fecharModal('modal-login')">×</button>
+    <p class="mini-titulo">ÁREA RESTRITA</p>
+    <h2>Área da proprietária</h2>
+    <input id="senha-admin" type="password" placeholder="Digite sua senha">
+    <button class="botao-principal" onclick="entrarAdmin()">Entrar</button>
+    <p id="erro-login" class="erro"></p>
+  </div>
+</div>
+
+<!-- PAINEL -->
+<div class="modal" id="modal-admin">
+  <div class="janela janela-admin">
+    <button class="fechar" onclick="fecharModal('modal-admin')">×</button>
+    <p class="mini-titulo">GERENCIAMENTO DA LOJA</p>
+    <h2>Cabine de comandos</h2>
+    <p class="explicacao">Gerencie os produtos, preços e disponibilidade do cardápio.</p>
+
+    <div class="form-admin">
+      <h3 id="titulo-form">Adicionar produto</h3>
+      <input type="hidden" id="produto-id">
+
+      <label>Nome do produto</label>
+      <input id="admin-nome" placeholder="Nome do produto">
+
+      <label>Preço</label>
+      <input id="admin-preco" type="number" min="0" step="0.01" placeholder="Ex.: 8,00">
+
+      <label>Categoria</label>
+      <select id="admin-categoria">
+        <option>Congelados</option>
+        <option>Salgados Fit</option>
+        <option>Bolos Funcionais</option>
+        <option>Pães</option>
+        <option>Nossos Pratos</option>
+        <option>Bebidas</option>
+      </select>
+
+      <label>Descrição</label>
+      <textarea id="admin-descricao" placeholder="Descrição do produto"></textarea>
+
+      <button class="botao-principal" onclick="salvarProduto()">Salvar produto</button>
+      <button class="botao-claro" onclick="limparFormulario()">Limpar formulário</button>
+    </div>
+
+    <div class="cabecalho-lista">
+      <h3>Produtos cadastrados</h3>
+      <span id="quantidade-produtos"></span>
+    </div>
+    <div id="lista-admin" class="lista-admin"></div>
+
+    <button class="botao-claro" onclick="sairAdmin()">Sair da cabine</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
